@@ -28,7 +28,7 @@ if [[ -z "$transcript_path" || ! -f "$transcript_path" ]]; then
     exit 0
 fi
 
-max_context=200000
+max_context=$(echo "$input" | jq -r '.context_window.context_window_size // 200000')
 
 # Calculate context usage from transcript (same method as context-bar.sh)
 context_length=$(jq -s '
