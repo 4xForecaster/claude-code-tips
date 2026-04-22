@@ -39,7 +39,21 @@ Create at `~/tradingview-mcp/rules.json` with this configuration:
     "no_trades_during": ["NFP", "FOMC", "ECB", "BoE", "BoJ", "SNB rate decision", "Asian session for non-JPY pairs", "rollover spread widening"]
   },
   "indicators_i_care_about": ["RSI (14)", "MACD (12, 26, 9)", "50 EMA", "200 EMA", "ATR (14)", "DXY correlation"],
-  "sessions_to_trade": ["London", "New York", "London/NY overlap"]
+  "sessions_to_trade": {
+    "london": "07:00-16:00 UTC",
+    "new_york": "12:00-21:00 UTC",
+    "london_ny_overlap": "12:00-16:00 UTC"
+  },
+  "execution_rules": {
+    "max_spread_pips": { "majors": 2, "crosses": 3 },
+    "avoid_rollover_window": "20:55-21:05 UTC",
+    "stop_loss_buffer_atr_multiple": 1.5
+  },
+  "correlations_to_respect": {
+    "positive": [["EURUSD", "GBPUSD"], ["AUDUSD", "NZDUSD"], ["EURUSD", "GOLD"]],
+    "negative": [["EURUSD", "USDCHF"], ["EURUSD", "DXY"], ["USDJPY", "GOLD"]],
+    "rule": "Do not stack correlated positions — count them as one risk unit"
+  }
 }
 ```
 
